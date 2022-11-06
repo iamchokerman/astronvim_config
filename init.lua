@@ -2,7 +2,7 @@ local config = {
 
   -- Set colorscheme
   colorscheme = "default_theme",
-
+  
   -- set vim options here (vim.<first_key>.<second_key> =  value)
   options = {
     vim.api.nvim_command([[
@@ -11,11 +11,11 @@ local config = {
     ]]),
     opt = {
       relativenumber = true, -- sets vim.opt.relativenumber
+      guifont = "Illusion Z:h12",
     },
     g = {
       mapleader = " ", -- sets vim.g.mapleader
     },
-
   },
 
   header = {
