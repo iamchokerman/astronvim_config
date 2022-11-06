@@ -8,8 +8,6 @@ local config = {
     vim.api.nvim_command([[
       autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
       autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
-      highlight Normal guibg=none
-      highlight NonText guibg=none
     ]]),
     opt = {
       relativenumber = true, -- sets vim.opt.relativenumber
@@ -17,6 +15,24 @@ local config = {
     g = {
       mapleader = " ", -- sets vim.g.mapleader
     },
+
+  },
+
+  header = {
+    "⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣠⣤⣶⣶",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢰⣿⣿⣿⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣀⣀⣾⣿⣿⣿⣿",
+    "⣿⣿⣿⣿⣿⡏⠉⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿",
+    "⣿⣿⣿⣿⣿⣿⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠁⠀⣿",
+    "⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠙⠿⠿⠿⠻⠿⠿⠟⠿⠛⠉⠀⠀⠀⠀⠀⣸⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣴⣿⣿⣿⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⢰⣹⡆⠀⠀⠀⠀⠀⠀⣭⣷⠀⠀⠀⠸⣿⣿⣿⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠈⠉⠀⠀⠤⠄⠀⠀⠀⠉⠁⠀⠀⠀⠀⢿⣿⣿⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⢾⣿⣷⠀⠀⠀⠀⡠⠤⢄⠀⠀⠀⠠⣿⣿⣷⠀⢸⣿⣿⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⡀⠉⠀⠀⠀⠀⠀⢄⠀⢀⠀⠀⠀⠀⠉⠉⠁⠀⠀⣿⣿⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿",
+    "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿",
   },
 
   -- Default theme configuration
@@ -41,7 +57,7 @@ local config = {
       highlighturl = true,
       hop = false,
       indent_blankline = true,
-      lightspeed = false,
+      lightspeed = true,
       ["neo-tree"] = true,
       notify = true,
       ["nvim-tree"] = false,
@@ -70,7 +86,6 @@ local config = {
       -- You can also add new plugins here as well:
       { "andweeb/presence.nvim" },
       { "github/copilot.vim" },
-      { "morhetz/gruvbox" },
       {
         "ray-x/lsp_signature.nvim",
         event = "BufRead",
@@ -122,6 +137,25 @@ local config = {
     -- Extend filetypes
     filetype_extend = {
       javascript = { "javascriptreact" },
+    },
+  },
+
+  mappings = {
+    -- first key is the mode
+    -- desc setting is stored by vim.keymap.set() as a part of opts table in vim lua module
+    n = {
+      -- second key is the lefthand side of the map
+      -- BUffer
+      ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+      ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
+      ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
+      -- quick save
+      -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    },
+    t = {
+      -- setting a mapping to false will disable it
+      -- ["<esc>"] = false,
+      ["<C-l>"] = false,
     },
   },
 
@@ -202,7 +236,7 @@ local config = {
     vim.keymap.set("n", "N", "Nzzzv")
     vim.keymap.set("n", "J", "mzJ'z")
     vim.keymap.set("n", "S", ":%s//gI<left><left><left>")
-    vim.api.nvim_set_keymap("i", "<C-h>", "copilot#Accept('<CR>')", {expr=true, silent=true})
+    vim.api.nvim_set_keymap("i", "<C-h>", "copilot#Accept('<CR>')", { expr = true, silent = true })
 
     -- Set autocommands
     vim.api.nvim_create_augroup("packer_conf", { clear = true })
